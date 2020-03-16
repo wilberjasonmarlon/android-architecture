@@ -1,41 +1,22 @@
 package com.carlyadam.arquitecture.repo
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.carlyadam.arquitecture.data.ApiService
-import com.carlyadam.arquitecture.data.model.BookInterceptor
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import com.carlyadam.arquitecture.data.api.ApiService
+import com.carlyadam.arquitecture.data.api.Result
+import com.carlyadam.arquitecture.data.api.safeApiCall
+import com.carlyadam.arquitecture.data.model.Book
+import java.io.IOException
 
 class BookRepository(private val apiService: ApiService) {
 
-    private val _bookLiveData = MutableLiveData<BookInterceptor>()
-    val bookLiveData: LiveData<BookInterceptor> = _bookLiveData
+    suspend fun getBook() = safeApiCall(
+        call = { fetchBook() },
+        errorMessage = "Error occurred"
+    )
 
-    suspend fun getBook(): LiveData<BookInterceptor> {
-        return withContext(Dispatchers.IO) {
-            fetchBook()
-        }
-    }
-
-    private suspend fun fetchBook(): LiveData<BookInterceptor> {
-        _bookLiveData.value = BookInterceptor(
-            loading = true
-        )
+    private suspend fun fetchBook(): Result<Book> {
         val response = apiService.getBook()
-        if (response.isSuccessful) {
-            _bookLiveData.value = BookInterceptor(
-                loading = false,
-                book = response.body()
-            )
-        } else {
-            _bookLiveData.value = BookInterceptor(
-                loading = false,
-                book = response.errorBody()!!.string()
-            )
-        }
-
-        return bookLiveData
-
+        if (response.isSuccessful)
+            return Result.Success(response.body()!!)
+        return Result.Error(IOException("Error occurred during fetching books!"))
     }
 }

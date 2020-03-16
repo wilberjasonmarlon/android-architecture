@@ -1,7 +1,8 @@
-package com.carlyadam.arquitecture.data
+package com.carlyadam.arquitecture.data.api
 
 import com.carlyadam.arquitecture.data.model.Book
 import com.carlyadam.arquitecture.utilities.Constant.APIURL
+import mx.devbizne.bizne.utils.NetworkConnectionInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -10,8 +11,8 @@ import retrofit2.http.GET
 
 interface ApiService {
 
-    @GET("book.json")
-    suspend fun getBook() : Response<Book>
+    @GET("books.json")
+    suspend fun getBook(): Response<Book>
 
     companion object {
         operator fun invoke(

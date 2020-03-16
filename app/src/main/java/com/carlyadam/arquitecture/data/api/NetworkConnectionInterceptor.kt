@@ -1,9 +1,9 @@
-package com.carlyadam.arquitecture.data
+package mx.devbizne.bizne.utils
 
 import android.content.Context
 import android.net.ConnectivityManager
 import com.carlyadam.arquitecture.R
-import com.carlyadam.arquitecture.data.model.DataInterceptor
+import com.carlyadam.arquitecture.utilities.NoInternetException
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -15,11 +15,7 @@ class NetworkConnectionInterceptor(
 
     override fun intercept(chain: Interceptor.Chain): Response {
         if (!checkConnection())
-            DataInterceptor(
-                connection = applicationContext.resources.getString(
-                    R.string.no_connection
-                )
-            )
+            throw NoInternetException(applicationContext.resources.getString(R.string.no_connection))
         return chain.proceed(chain.request())
     }
 
