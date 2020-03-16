@@ -11,13 +11,13 @@ import kotlinx.coroutines.Job
 
 class BookViewModel(private val bookRepository: BookRepository) : ViewModel() {
 
-    private val _bookLiveData = MutableLiveData<Book>()
-    val bookLiveData: LiveData<Book> get() = _bookLiveData
+    private val _bookLiveData = MutableLiveData<List<Book>>()
+    val bookLiveData: LiveData<List<Book>> get() = _bookLiveData
     private val _errorLiveData = MutableLiveData<String>()
     val errorLiveData: LiveData<String> get() = _errorLiveData
     private var moviesJob: Job? = null
 
-    fun getBook(){
+    fun getBook() {
         moviesJob = Coroutines.main() {
             when (val result = bookRepository.getBook()) {
                 is Result.Success -> _bookLiveData.postValue(result.data)

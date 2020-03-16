@@ -12,7 +12,7 @@ import retrofit2.http.GET
 interface ApiService {
 
     @GET("books.json")
-    suspend fun getBook(): Response<Book>
+    suspend fun getBook(): Response<List<Book>>
 
     companion object {
         operator fun invoke(

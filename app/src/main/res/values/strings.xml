@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">arquitecture</string>
     <string name="no_connection">Connection problem, please check your connection.</string>
+    <string name="unauthorized">UnAuthorized</string>
     <string name="email_crash">carlyadam88@gmail.com</string>
     <string name="crash_text">Ups, please send us the error to fix it, Thanks ;)</string>
 </resources>

@@ -18,7 +18,7 @@ object AppModule {
         }
     }
     val bookModule = module {
-        single { BookRepository(get()) }
+        single { BookRepository(get(),get()) }
         viewModel { BookViewModel(get()) }
     }
 }
