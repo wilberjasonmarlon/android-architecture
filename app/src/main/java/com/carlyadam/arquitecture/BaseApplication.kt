@@ -1,9 +1,9 @@
 package com.carlyadam.arquitecture
 
 import android.app.Application
-import com.carlyadam.arquitecture.R
 import com.carlyadam.arquitecture.di.AppModule.bookModule
 import com.carlyadam.arquitecture.di.AppModule.webServiceModule
+import org.acra.ACRA
 import org.acra.ReportingInteractionMode
 import org.acra.annotation.ReportsCrashes
 import org.koin.android.ext.koin.androidContext
@@ -23,7 +23,7 @@ class BaseApplication : Application() {
             androidContext(this@BaseApplication)
             modules(appComponent)
         }
-        // ACRA.init(this)
+        ACRA.init(this)
     }
 
 

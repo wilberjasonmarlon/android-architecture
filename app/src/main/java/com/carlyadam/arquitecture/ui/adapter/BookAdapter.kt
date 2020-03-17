@@ -30,7 +30,6 @@ class BookAdapter(var bookList: List<Book>, var mContext: Context) :
         return bookList.size
     }
 
-
     class ViewHolder(private val binding: ItemBookBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(book: Book) {
             binding.textViewName.text = book.name

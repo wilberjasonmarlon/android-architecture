@@ -2,7 +2,6 @@ package com.carlyadam.arquitecture.data.api
 
 import com.carlyadam.arquitecture.data.model.Book
 import com.carlyadam.arquitecture.utilities.Constant.APIURL
-import mx.devbizne.bizne.utils.NetworkConnectionInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit

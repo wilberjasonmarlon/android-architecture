@@ -1,7 +1,8 @@
-package mx.devbizne.bizne.utils
+package com.carlyadam.arquitecture.data.api
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import com.carlyadam.arquitecture.R
 import com.carlyadam.arquitecture.utilities.NoInternetException
 import okhttp3.Interceptor
@@ -20,11 +21,20 @@ class NetworkConnectionInterceptor(
     }
 
     private fun checkConnection(): Boolean {
+        val result: Boolean
         val connectivityManager =
             applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        connectivityManager.activeNetworkInfo.also {
-            return it != null && it.isConnected
+        val networkCapabilities = connectivityManager.activeNetwork ?: return false
+        val activeNet=
+            connectivityManager.getNetworkCapabilities(networkCapabilities) ?: return false
+        result = when {
+            activeNet.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+            activeNet.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+            activeNet.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+            else -> false
         }
+
+        return result
     }
 
 }

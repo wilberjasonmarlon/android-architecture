@@ -15,10 +15,10 @@ class BookViewModel(private val bookRepository: BookRepository) : ViewModel() {
     val bookLiveData: LiveData<List<Book>> get() = _bookLiveData
     private val _errorLiveData = MutableLiveData<String>()
     val errorLiveData: LiveData<String> get() = _errorLiveData
-    private var moviesJob: Job? = null
+    private var bookJob: Job? = null
 
     fun getBook() {
-        moviesJob = Coroutines.main() {
+        bookJob = Coroutines.io {
             when (val result = bookRepository.getBook()) {
                 is Result.Success -> _bookLiveData.postValue(result.data)
                 is Result.Error -> _errorLiveData.postValue(result.exception.message)
@@ -28,6 +28,6 @@ class BookViewModel(private val bookRepository: BookRepository) : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        moviesJob?.cancel()
+        bookJob?.cancel()
     }
 }
