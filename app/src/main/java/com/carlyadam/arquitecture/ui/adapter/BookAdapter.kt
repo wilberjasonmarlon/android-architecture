@@ -21,10 +21,8 @@ class BookAdapter(var bookList: List<Book>, var mContext: Context) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        when (holder) {
-            is ViewHolder -> {
-                holder.bind(bookList[position])
-            }
+        holder.apply {
+            holder.bind(bookList[position])
         }
     }
 
