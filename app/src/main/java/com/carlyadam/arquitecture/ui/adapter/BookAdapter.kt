@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.carlyadam.arquitecture.R
 import com.carlyadam.arquitecture.data.model.Book
 
 class BookAdapter(var bookList: List<Book>, var mContext: Context) :
-    RecyclerView.Adapter<BookAdapter.ViewHolder>() {
+    ListAdapter<Book, BookAdapter.ViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(mContext)
@@ -19,13 +21,10 @@ class BookAdapter(var bookList: List<Book>, var mContext: Context) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
         when (holder) {
-
             is ViewHolder -> {
                 holder.bind(bookList[position])
             }
-
         }
     }
 
@@ -34,7 +33,6 @@ class BookAdapter(var bookList: List<Book>, var mContext: Context) :
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         val textViewName: TextView = itemView.findViewById(R.id.textViewName)
         val textViewLastName: TextView = itemView.findViewById(R.id.textViewLastName)
         fun bind(book: Book) {
@@ -46,5 +44,15 @@ class BookAdapter(var bookList: List<Book>, var mContext: Context) :
     interface AdapterListener {
         fun onItemTap(position: Int)
     }
+}
 
+private class DiffCallback : DiffUtil.ItemCallback<Book>() {
+
+    override fun areItemsTheSame(oldItem: Book, newItem: Book): Boolean {
+        return oldItem.name == newItem.name
+    }
+
+    override fun areContentsTheSame(oldItem: Book, newItem: Book): Boolean {
+        return oldItem == newItem
+    }
 }

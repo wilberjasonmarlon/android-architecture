@@ -23,16 +23,22 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        initRecyclerView()
         bookViewModel.getBook()
 
         bookViewModel.bookLiveData.observe(this, Observer {
             Log.i("RESSSSS", it.toString())
             progressBar.visibility = View.GONE
+            bookList.addAll(it)
+            bookAdapter.submitList(bookList)
         })
         bookViewModel.errorLiveData.observe(this, Observer {
             Log.i("RESSSSS", it.toString())
             progressBar.visibility = View.GONE
         })
+        button.setOnClickListener {
+            bookViewModel.getBook()
+        }
     }
 
     private fun initRecyclerView() {
