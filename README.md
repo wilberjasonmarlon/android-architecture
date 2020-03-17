@@ -1,4 +1,4 @@
-# Android MVVM Example V2
+# Android MVVM  Kotlin with steroids ;)
 
 ## Built with
 *  Kotlin
