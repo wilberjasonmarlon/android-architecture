@@ -6,7 +6,7 @@ import mx.devbizne.bizne.utils.NetworkConnectionInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 
 interface ApiService {
@@ -24,7 +24,7 @@ interface ApiService {
             return Retrofit.Builder()
                 .client(okkHttpclient)
                 .baseUrl(APIURL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(MoshiConverterFactory.create())
                 .build()
                 .create(ApiService::class.java)
         }

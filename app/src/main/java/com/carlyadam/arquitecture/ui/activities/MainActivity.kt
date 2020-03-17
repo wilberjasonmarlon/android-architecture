@@ -35,9 +35,6 @@ class MainActivity : BaseActivity() {
             binding.progressBar.visibility = View.GONE
             showToast(it)
         })
-        binding.button.setOnClickListener {
-            bookViewModel.getBook()
-        }
     }
 
     private fun initRecyclerView() {
